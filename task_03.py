@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Task 03 module"""
 
@@ -23,17 +22,15 @@ class CustomLogger(object):
         try:
 
             fhandler = open(self.logfilename, 'a')
-               
+            try:
+                for index, entry in enumerate(self.msgs):
+                    fhandler.write(str(entry) + '\n')
+                    handled.append(index)
+                fhandler.close()
+            finally:
+                pass   
         except IOError:
             raise  
             fhandler.close()
             for index in handled[::-1]:
                 del self.msgs[index]
-        else:
-            for index, entry in enumerate(self.msgs):
-                fhandler.write(str(entry) + '\n')
-                handled.append(index)
-            fhandler.close()
-        finally:
-            pass
-                
