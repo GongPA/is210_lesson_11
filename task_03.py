@@ -19,16 +19,18 @@ class CustomLogger(object):
 
     def flush(self):
         handled = []
-
+        
         try:
-            try:
-                fhandler = open(self.logfilename, 'a')
-            except IOError:
-                for index in handled[::-1]:
-                    del self.msgs[index]
-            else:
-                for index, entry in enumerate(self.msgs):
-                    fhandler.write(str(entry) + '\n')
-                    handled.append(index)
+
+            fhandler = open(self.logfilename, 'a')
+               
+        except IOError:
+            raise
+        else:
+            for index, entry in enumerate(self.msgs):
+                fhandler.write(str(entry) + '\n')
+                handled.append(index)
         finally:
             fhandler.close()
+            for index in handled[::-1]:
+                del self.msgs[index]
