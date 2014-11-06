@@ -21,13 +21,14 @@ class CustomLogger(object):
         handled = []
 
         try:
-            fhandler = open(self.logfilename, 'a')
-        except IOError:
-            for index in handled[::-1]:
-                del self.msgs[index]
-        else:
-            for index, entry in enumerate(self.msgs):
-                fhandler.write(str(entry) + '\n')
-                handled.append(index)
+            try:
+                fhandler = open(self.logfilename, 'a')
+            except IOError:
+                for index in handled[::-1]:
+                    del self.msgs[index]
+            else:
+                for index, entry in enumerate(self.msgs):
+                    fhandler.write(str(entry) + '\n')
+                    handled.append(index)
         finally:
             fhandler.close()
