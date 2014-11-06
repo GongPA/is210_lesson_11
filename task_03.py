@@ -30,7 +30,7 @@ class CustomLogger(object):
             for index, entry in enumerate(self.msgs):
                 fhandler.write(str(entry) + '\n')
                 handled.append(index)
-        finally:
-            fhandler.close()
-            for index in handled[::-1]:
-                del self.msgs[index]
+            finally:
+                fhandler.close()
+                for index in handled[::-1]:
+                    del self.msgs[index]
